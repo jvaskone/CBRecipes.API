@@ -13,8 +13,10 @@ namespace CBRecipes.API.Entities
         [MaxLength(50)]
         public string Name { get; set; }
         
-        [ForeignKey("CategoryId")]
-        public RecipeCategory? Category {get; set; }
+//        [ForeignKey("CategoryId")]
+//        public RecipeCategory? Category {get; set; }
+
+        public int CategoryId { get; set; }
 
         public string? Ingredients { get; set; }
 

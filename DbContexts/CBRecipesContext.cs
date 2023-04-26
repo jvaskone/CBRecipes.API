@@ -46,6 +46,23 @@ namespace CBRecipes.API.DbContexts
                     Id = 7
                 }
             );
+            modelBuilder.Entity<Recipe>().HasData(
+                new Recipe("Húsleves")
+                {
+                    Id = 1,
+                    CategoryId = 1,                  
+                    Ingredients = "To be added..",
+                    Instructions = "To be added..."
+                },
+                new Recipe("Csirkepaprikás")
+                {
+                    Id = 2,
+                    CategoryId = 2,                  
+                    Ingredients = "To be added...",
+                    Instructions = "To be added..."
+                }
+
+            );
             base.OnModelCreating(modelBuilder);
         }
     }

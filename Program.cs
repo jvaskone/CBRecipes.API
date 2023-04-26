@@ -14,7 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<RecipesDataStore>();
 
-var connectionString = builder.Configuration["ConnectionStrings:CBRecipesDBConnectionString"];
+var connectionString = "Data Source=CBRecipes.db";
+//var connectionString = builder.Configuration["ConnectionStrings:CBRecipesDBConnectionString"];
 if (connectionString != null) 
 {
     builder.Services.AddDbContext<CBRecipesContext>(

@@ -4,7 +4,10 @@ namespace CBRecipes.API.Models
     {
         public int Id { get; set; }
 
-        public string Name { get; set; } = string.Empty;        
+        public string Name { get; set; } = string.Empty;    
+
+        public int CategoryId { get; set; }
+        //public RecipeCategoryDto? Category { get; set; }           
 
         public string? Ingredients { get; set; }
 

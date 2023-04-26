@@ -1,4 +1,5 @@
 using CBRecipes.API.Models;
+using CBRecipes.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CBRecipes.API.Controllers
@@ -7,29 +8,46 @@ namespace CBRecipes.API.Controllers
     [Route("api/recipes")]
     public class RecipesController : ControllerBase
     {
-        private readonly RecipesDataStore _recipesDataStore;
-        public RecipesController(RecipesDataStore recipesDataStore)
+        private readonly ICBRecipesRepository _recipesRepository;
+        public RecipesController(ICBRecipesRepository recipesRepository)
         {
-            _recipesDataStore = recipesDataStore ?? throw new ArgumentNullException(nameof(recipesDataStore));
+            _recipesRepository = recipesRepository ?? throw new ArgumentNullException(nameof(recipesRepository));
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<RecipeDto>> GetCities()
+        public async Task<ActionResult<IEnumerable<RecipeDto>>> GetRecipes()
         {
-            return Ok(_recipesDataStore.Recipes);
+            var recipeEntities = await _recipesRepository.GetRecipesAsync();
+
+            var results = new List<RecipeDto>();
+            foreach (var recipeEntity in recipeEntities)
+            {
+                results.Add(new RecipeDto
+                {
+                    Id = recipeEntity.Id,
+                    Name = recipeEntity.Name,
+                    CategoryId = recipeEntity.CategoryId,
+                    //Category = recipeEntity.Category,
+                    Ingredients = recipeEntity.Ingredients,
+                    Instructions = recipeEntity.Instructions                    
+                });
+            }
+            return Ok(results);
+            //return Ok(_recipesDataStore.Recipes);
         }
 
         [HttpGet("{id}")]
         public ActionResult<RecipeDto> GetRecipe(int id)
         {
-            var recipeToReturn = _recipesDataStore.Recipes
-            .FirstOrDefault(r => r.Id == id);
+            // var recipeToReturn = _recipesDataStore.Recipes
+            // .FirstOrDefault(r => r.Id == id);
 
-            if(recipeToReturn == null) {
-                return NotFound();
-            }
+            // if(recipeToReturn == null) {
+            //     return NotFound();
+            // }
 
-            return Ok(recipeToReturn);
+            // return Ok(recipeToReturn);
+            return Ok();
         }
     }
 }
