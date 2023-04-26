@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj": {}
+    "C:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj": {}
   },
   "projects": {
-    "c:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj": {
+    "C:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj",
+        "projectUniqueName": "C:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj",
         "projectName": "CBRecipes.API",
-        "projectPath": "c:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj",
+        "projectPath": "C:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj",
         "packagesPath": "C:\\Users\\jvasko\\.nuget\\packages\\",
-        "outputPath": "c:\\Learning\\CBRecipes.API\\obj\\",
+        "outputPath": "C:\\Learning\\CBRecipes.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jvasko\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -43,6 +43,12 @@
               "version": "[7.0.3, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.0, )"
             },

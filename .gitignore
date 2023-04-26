@@ -2,3 +2,6 @@ bin/Debug/net7.0/*
 obj/Debug/net7.0/*
 obj/project.nuget.cache
 
+CBRecipes.db
+CBRecipes.db-shm
+CBRecipes.db-wal

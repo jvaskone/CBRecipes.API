@@ -14,16 +14,15 @@ namespace CBRecipes.API.Entities
         public string Name { get; set; }
         
         [ForeignKey("CategoryId")]
-        public RecipeCategory Category {get; set; }
+        public RecipeCategory? Category {get; set; }
 
         public string? Ingredients { get; set; }
 
         public string? Instructions { get; set; }
 
-        public Recipe(string name, RecipeCategory category)
+        public Recipe(string name)
         {
-            Name = name;
-            Category = category;
+            Name = name;            
         }
     }
 }
