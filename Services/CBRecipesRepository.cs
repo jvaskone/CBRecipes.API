@@ -13,19 +13,25 @@ namespace CBRecipes.API.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public async Task<IEnumerable<Recipe>> GetRecipesAsync()
+        {
+            return await _context.Recipes.ToListAsync();
+        }
+
         public async Task<Recipe?> GetRecipeAsync(int recipeId)
         {
             return await _context.Recipes.Where(r => r.Id == recipeId).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<RecipeCategory>> GetRecipeCategories()
+        public async Task<IEnumerable<RecipeCategory>> GetRecipeCategoriesAsync()
         {
             return await _context.RecipeCategories.ToListAsync();
         }
 
-        public async Task<IEnumerable<Recipe>> GetRecipesAsync()
+        public async Task<RecipeCategory?> GetRecipeCategoryAsync(int categoryId)
         {
-            return await _context.Recipes.ToListAsync();
+            return await _context.RecipeCategories.Where(c => c.Id == categoryId).FirstOrDefaultAsync();
         }
+
     }
 }

@@ -8,6 +8,8 @@ namespace CBRecipes.API.Services
 
         Task<Recipe?> GetRecipeAsync(int recipeId);
 
-        Task<IEnumerable<RecipeCategory>> GetRecipeCategories();
+        Task<IEnumerable<RecipeCategory>> GetRecipeCategoriesAsync();
+
+        Task<RecipeCategory?> GetRecipeCategoryAsync(int categoryId);
     }
 }

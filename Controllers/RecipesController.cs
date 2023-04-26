@@ -1,3 +1,4 @@
+using AutoMapper;
 using CBRecipes.API.Models;
 using CBRecipes.API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,12 @@ namespace CBRecipes.API.Controllers
     public class RecipesController : ControllerBase
     {
         private readonly ICBRecipesRepository _recipesRepository;
-        public RecipesController(ICBRecipesRepository recipesRepository)
+        private readonly IMapper _mapper;
+        public RecipesController(ICBRecipesRepository recipesRepository,
+            IMapper mapper)
         {
             _recipesRepository = recipesRepository ?? throw new ArgumentNullException(nameof(recipesRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
@@ -19,35 +23,14 @@ namespace CBRecipes.API.Controllers
         {
             var recipeEntities = await _recipesRepository.GetRecipesAsync();
 
-            var results = new List<RecipeDto>();
-            foreach (var recipeEntity in recipeEntities)
-            {
-                results.Add(new RecipeDto
-                {
-                    Id = recipeEntity.Id,
-                    Name = recipeEntity.Name,
-                    CategoryId = recipeEntity.CategoryId,
-                    //Category = recipeEntity.Category,
-                    Ingredients = recipeEntity.Ingredients,
-                    Instructions = recipeEntity.Instructions                    
-                });
-            }
-            return Ok(results);
-            //return Ok(_recipesDataStore.Recipes);
+            return Ok(_mapper.Map<IEnumerable<RecipeDto>>(recipeEntities));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<RecipeDto> GetRecipe(int id)
+        public async Task<ActionResult<RecipeDto>> GetRecipe(int id)
         {
-            // var recipeToReturn = _recipesDataStore.Recipes
-            // .FirstOrDefault(r => r.Id == id);
-
-            // if(recipeToReturn == null) {
-            //     return NotFound();
-            // }
-
-            // return Ok(recipeToReturn);
-            return Ok();
+             var recipeToReturn = await _recipesRepository.GetRecipeAsync(id);
+             return Ok(_mapper.Map<RecipeDto>(recipeToReturn));
         }
     }
 }

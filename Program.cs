@@ -14,8 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<RecipesDataStore>();
 
-var connectionString = "Data Source=CBRecipes.db";
-//var connectionString = builder.Configuration["ConnectionStrings:CBRecipesDBConnectionString"];
+
+var connectionString = builder.Configuration["ConnectionStrings:CBRecipesDBConnectionString"];
 if (connectionString != null) 
 {
     builder.Services.AddDbContext<CBRecipesContext>(
@@ -29,6 +29,8 @@ else
 }
 
 builder.Services.AddScoped<ICBRecipesRepository, CBRecipesRepository>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
