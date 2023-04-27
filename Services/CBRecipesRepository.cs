@@ -33,5 +33,19 @@ namespace CBRecipes.API.Services
             return await _context.RecipeCategories.Where(c => c.Id == categoryId).FirstOrDefaultAsync();
         }
 
+        public void AddRecipe(Recipe recipe)
+        {
+            _context.Recipes.Add(recipe); 
+        }
+
+        public void DeleteRecipe(Recipe recipe)
+        {
+            _context.Recipes.Remove(recipe);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync() >= 0);
+        }
     }
 }

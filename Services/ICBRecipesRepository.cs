@@ -11,5 +11,11 @@ namespace CBRecipes.API.Services
         Task<IEnumerable<RecipeCategory>> GetRecipeCategoriesAsync();
 
         Task<RecipeCategory?> GetRecipeCategoryAsync(int categoryId);
+
+        void AddRecipe(Recipe recipe);
+
+        void DeleteRecipe(Recipe recipe);
+
+        Task<bool> SaveChangesAsync();
     }
 }

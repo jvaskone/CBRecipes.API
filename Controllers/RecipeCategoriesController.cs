@@ -26,9 +26,12 @@ namespace CBRecipes.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RecipeCategoryDto>> GetCategory(int categoryId)
-        {
-            var categoryToReturn = await _repository.GetRecipeCategoryAsync(categoryId);
+        public async Task<ActionResult<RecipeCategoryDto>> GetCategory(int id)
+        {            
+            var categoryToReturn = await _repository.GetRecipeCategoryAsync(id);
+            if (categoryToReturn == null) {
+                return NotFound();
+            }
             return Ok(_mapper.Map<RecipeCategoryDto>(categoryToReturn));
         }
     }
