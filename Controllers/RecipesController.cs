@@ -56,6 +56,24 @@ namespace CBRecipes.API.Controllers
                 createdRecipe);
         }
 
+        [HttpPut("{recipeId}")]
+        public async Task<ActionResult> UpdateRecipe(int recipeId,
+            RecipeForUpdateDto recipe) 
+        {
+            var recipeEntity = await _recipesRepository
+                .GetRecipeAsync(recipeId);
+            if(recipeEntity == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(recipe, recipeEntity);
+
+            await _recipesRepository.SaveChangesAsync();
+
+            return NoContent();
+        }
+
 
         [HttpDelete("{recipeId}")]
         public async Task<ActionResult> DeleteRecipe(int recipeId) 
