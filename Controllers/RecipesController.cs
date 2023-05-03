@@ -1,6 +1,7 @@
 using AutoMapper;
 using CBRecipes.API.Models;
 using CBRecipes.API.Services;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CBRecipes.API.Controllers
@@ -89,6 +90,37 @@ namespace CBRecipes.API.Controllers
             _recipesRepository.DeleteRecipe(recipeEntity);
             await _recipesRepository.SaveChangesAsync();
             return NoContent();
-        }        
+        }  
+
+        [HttpPatch("{recipeId}")]
+        public async Task<ActionResult> PartiallyUpdateRecipe(int recipeId,
+            JsonPatchDocument<RecipeForUpdateDto> patchDocument)
+        {
+           var recipeEntity = await _recipesRepository
+                .GetRecipeAsync(recipeId);
+
+            if(recipeEntity == null)
+            {
+                return NotFound();
+            }  
+
+            var recipeToPatch = _mapper.Map<RecipeForUpdateDto>(recipeEntity);          
+            patchDocument.ApplyTo(recipeToPatch, ModelState);
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(!TryValidateModel(recipeToPatch))
+            {
+                return BadRequest(ModelState);
+            }
+
+            _mapper.Map(recipeToPatch, recipeEntity);
+            await _recipesRepository.SaveChangesAsync();
+
+            return NoContent();
+        }      
     }
 }
