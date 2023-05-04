@@ -23,6 +23,14 @@ namespace CBRecipes.API.Services
             return await _context.Recipes.Where(r => r.Id == recipeId).FirstOrDefaultAsync();
         }
 
+        public async Task<Recipe?> GetRecipeAsync(int recipeId, bool includeCategory)
+        {
+            if (!includeCategory) {
+                return await GetRecipeAsync(recipeId);
+            }
+            return await _context.Recipes.Include(r => r.Category).Where(r => r.Id == recipeId).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<RecipeCategory>> GetRecipeCategoriesAsync()
         {
             return await _context.RecipeCategories.ToListAsync();
