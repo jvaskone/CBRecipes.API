@@ -25,7 +25,7 @@ namespace CBRecipes.API.Controllers
             return Ok(_mapper.Map<IEnumerable<RecipeCategoryDto>>(categoryEntities));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetCategory")]
         public async Task<ActionResult<RecipeCategoryDto>> GetCategory(int id)
         {            
             var categoryToReturn = await _repository.GetRecipeCategoryAsync(id);
@@ -34,5 +34,24 @@ namespace CBRecipes.API.Controllers
             }
             return Ok(_mapper.Map<RecipeCategoryDto>(categoryToReturn));
         }
+
+        [HttpPost("{category}")]
+        public async Task<ActionResult<RecipeCategoryDto>> CreateRecipeCategory(            
+            RecipeCategoryDto category)
+        {
+            var finalCategory = _mapper.Map<Entities.RecipeCategory>(category);
+            _repository.AddCategory(finalCategory);
+
+            await _repository.SaveChangesAsync();
+
+            var createdCategory = _mapper.Map<Models.RecipeCategoryDto>(category);
+
+            return CreatedAtRoute("GetCategory",
+                new 
+                {
+                    id = createdCategory.Id
+                },
+                createdCategory);
+        }        
     }
 }

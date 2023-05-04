@@ -7,6 +7,7 @@ namespace CBRecipes.API.Profiles
         public RecipeCategoryProfile()
         {
             CreateMap<Entities.RecipeCategory, Models.RecipeCategoryDto>();
-        }   
+            CreateMap<Models.RecipeCategoryDto, Entities.RecipeCategory>();
+          }   
     }
 }

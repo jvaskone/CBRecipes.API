@@ -43,6 +43,11 @@ namespace CBRecipes.API.Services
             _context.Recipes.Remove(recipe);
         }
 
+        public void AddCategory(RecipeCategory category)
+        {
+            _context.RecipeCategories.Add(category);
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync() >= 0);

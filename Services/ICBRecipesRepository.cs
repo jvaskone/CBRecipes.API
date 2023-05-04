@@ -16,6 +16,8 @@ namespace CBRecipes.API.Services
 
         void DeleteRecipe(Recipe recipe);
 
+        void AddCategory(RecipeCategory category);
+
         Task<bool> SaveChangesAsync();
     }
 }
