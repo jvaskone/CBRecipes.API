@@ -11,6 +11,8 @@ namespace CBRecipes.API.Models
 
         public int CategoryId { get; set; }
 
+        public String? Image { get; set; }
+
         public string? Ingredients { get; set; }
 
         public string? Instructions { get; set; }

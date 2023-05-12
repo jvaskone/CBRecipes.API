@@ -18,6 +18,8 @@ namespace CBRecipes.API.Entities
 
         public int CategoryId { get; set; }
 
+        public String? Image { get; set; }
+
         public string? Ingredients { get; set; }
 
         public string? Instructions { get; set; }

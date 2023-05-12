@@ -12,7 +12,7 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<RecipesDataStore>();
+//builder.Services.AddSingleton<RecipesDataStore>();
 
 
 var connectionString = builder.Configuration["ConnectionStrings:CBRecipesDBConnectionString"];
