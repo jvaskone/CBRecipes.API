@@ -15,7 +15,7 @@ namespace CBRecipes.API.Services
 
         public async Task<IEnumerable<Recipe>> GetRecipesAsync()
         {
-            return await _context.Recipes.ToListAsync();
+            return await _context.Recipes.OrderBy(r => r.CategoryId).ToListAsync();
         }
 
         public async Task<Recipe?> GetRecipeAsync(int recipeId)
