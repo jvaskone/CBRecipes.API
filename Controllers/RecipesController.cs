@@ -20,9 +20,9 @@ namespace CBRecipes.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RecipeDto>>> GetRecipes()
+        public async Task<ActionResult<IEnumerable<RecipeDto>>> GetRecipes(string? name, string? searchQuery)
         {
-            var recipeEntities = await _recipesRepository.GetRecipesAsync();
+            var recipeEntities = await _recipesRepository.GetRecipesAsync(name, searchQuery);
 
             return Ok(_mapper.Map<IEnumerable<RecipeDto>>(recipeEntities));
         }

@@ -18,6 +18,33 @@ namespace CBRecipes.API.Services
             return await _context.Recipes.OrderBy(r => r.CategoryId).ToListAsync();
         }
 
+        public async Task<IEnumerable<Recipe>> GetRecipesAsync(string? name, string? searchQuery)
+        {
+            if (string.IsNullOrEmpty(name)
+                && string.IsNullOrEmpty(searchQuery))
+            {
+                return await GetRecipesAsync();
+            }
+
+            // collection to start from
+            var collection = _context.Recipes as IQueryable<Recipe>;
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                name = name.Trim();
+                collection = collection.Where(r => r.Name == name);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                searchQuery = searchQuery.Trim().ToLower();
+                collection = collection.Where(a => a.Name.ToLower().Contains(searchQuery)
+                    ||(a.Category !=null && a.Category.Name.ToLower().Contains(searchQuery)));
+            }
+
+            return await collection.OrderBy(r => r.CategoryId).ToListAsync();
+        }        
+
         public async Task<Recipe?> GetRecipeAsync(int recipeId)
         {
             return await _context.Recipes.Where(r => r.Id == recipeId).FirstOrDefaultAsync();
