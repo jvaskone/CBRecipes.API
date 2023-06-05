@@ -6,7 +6,7 @@ namespace CBRecipes.API.Services
     {
         Task<IEnumerable<Recipe>> GetRecipesAsync();
 
-        Task<IEnumerable<Recipe>> GetRecipesAsync(string? name, string? searchQuery);
+        Task<(IEnumerable<Recipe>, PaginationMetadata)> GetRecipesAsync(string? name, string? searchQuery, int pageNumber, int pageSize);
 
         Task<Recipe?> GetRecipeAsync(int recipeId);
 

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using AutoMapper;
 using CBRecipes.API.Models;
 using CBRecipes.API.Services;
@@ -12,6 +13,8 @@ namespace CBRecipes.API.Controllers
     {
         private readonly ICBRecipesRepository _recipesRepository;
         private readonly IMapper _mapper;
+        const int maxRecipesPageSize = 20;
+
         public RecipesController(ICBRecipesRepository recipesRepository,
             IMapper mapper)
         {
@@ -20,10 +23,16 @@ namespace CBRecipes.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RecipeDto>>> GetRecipes(string? name, string? searchQuery)
+        public async Task<ActionResult<IEnumerable<RecipeDto>>> GetRecipes(string? name, string? searchQuery,
+                int pageNumber = 1, int pageSize = 10)
         {
-            var recipeEntities = await _recipesRepository.GetRecipesAsync(name, searchQuery);
-
+            if (pageSize > maxRecipesPageSize) {
+                pageSize = maxRecipesPageSize;
+            }
+            var (recipeEntities, paginationMetadata) = await _recipesRepository
+                .GetRecipesAsync(name, searchQuery, pageNumber, pageSize);
+            
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
             return Ok(_mapper.Map<IEnumerable<RecipeDto>>(recipeEntities));
         }
 

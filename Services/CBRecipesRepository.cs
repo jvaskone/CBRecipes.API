@@ -18,14 +18,9 @@ namespace CBRecipes.API.Services
             return await _context.Recipes.OrderBy(r => r.CategoryId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Recipe>> GetRecipesAsync(string? name, string? searchQuery)
+        public async Task<(IEnumerable<Recipe>, PaginationMetadata)> GetRecipesAsync(string? name, 
+            string? searchQuery, int pageNumber, int pageSize)
         {
-            if (string.IsNullOrEmpty(name)
-                && string.IsNullOrEmpty(searchQuery))
-            {
-                return await GetRecipesAsync();
-            }
-
             // collection to start from
             var collection = _context.Recipes as IQueryable<Recipe>;
 
@@ -42,7 +37,16 @@ namespace CBRecipes.API.Services
                     ||(a.Category !=null && a.Category.Name.ToLower().Contains(searchQuery)));
             }
 
-            return await collection.OrderBy(r => r.CategoryId).ToListAsync();
+            var totalItemCount = await collection.CountAsync();
+
+            var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber);
+
+            var collectionToReturn = await collection.OrderBy(r => r.CategoryId)
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (collectionToReturn, paginationMetadata);
         }        
 
         public async Task<Recipe?> GetRecipeAsync(int recipeId)
