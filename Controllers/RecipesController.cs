@@ -23,7 +23,7 @@ namespace CBRecipes.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RecipeDto>>> GetRecipes(string? name, string? searchQuery,
+        public async Task<ActionResult<PaginatedRecipesDto>> GetRecipes(string? name, string? searchQuery,
                 int pageNumber = 1, int pageSize = 10)
         {
             if (pageSize > maxRecipesPageSize) {
@@ -31,9 +31,18 @@ namespace CBRecipes.API.Controllers
             }
             var (recipeEntities, paginationMetadata) = await _recipesRepository
                 .GetRecipesAsync(name, searchQuery, pageNumber, pageSize);
-            
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
-            return Ok(_mapper.Map<IEnumerable<RecipeDto>>(recipeEntities));
+
+            var paginatedRecipesDto = new PaginatedRecipesDto
+            {
+                Recipes = _mapper.Map<IEnumerable<RecipeDto>>(recipeEntities),
+                TotalItemCount = paginationMetadata.TotalItemCount,
+                TotalPageCount = paginationMetadata.TotalPageCount,
+                PageSize = paginationMetadata.PageSize,
+                CurrentPage = paginationMetadata.CurrentPage
+            };
+
+            //Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+            return Ok(paginatedRecipesDto);
         }
 
         [HttpGet("{id}", Name="GetRecipe")]

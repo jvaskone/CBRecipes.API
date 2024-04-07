@@ -6,9 +6,9 @@ namespace CBRecipes.API.DbContexts
     public class CBRecipesContext : DbContext
     {
 
-        public DbSet<Recipe> Recipes { get; set; } = null!;
+        public virtual DbSet<Recipe> Recipes { get; set; } = null!;
 
-        public DbSet<RecipeCategory> RecipeCategories { get; set; } = null!;
+        public virtual DbSet<RecipeCategory> RecipeCategories { get; set; } = null!;
 
         public CBRecipesContext(DbContextOptions<CBRecipesContext> options) : base(options)
         {

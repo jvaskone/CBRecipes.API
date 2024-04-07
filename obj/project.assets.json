@@ -1996,19 +1996,21 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj",
+      "projectUniqueName": "C:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj",
       "projectName": "CBRecipes.API",
-      "projectPath": "c:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj",
+      "projectPath": "C:\\Learning\\CBRecipes.API\\CBRecipes.API.csproj",
       "packagesPath": "C:\\Users\\jvasko\\.nuget\\packages\\",
-      "outputPath": "c:\\Learning\\CBRecipes.API\\obj\\",
+      "outputPath": "C:\\Learning\\CBRecipes.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jvasko\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\jvasko\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2073,6 +2075,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.14, 7.0.14]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[7.0.14, 7.0.14]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.14, 7.0.14]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[7.0.14, 7.0.14]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -2081,7 +2101,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
